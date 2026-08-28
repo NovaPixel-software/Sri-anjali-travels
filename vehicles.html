@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Vehicles — Sri Anjali Travels</title>
+<meta name="description" content="Compact sedan, MPV, SUV and minibus — pick the vehicle that fits your group and your route. Air conditioned, clean, professionally driven, with local and outstation rates shown up front.">
+<link rel="icon" href="assets/img/logo-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="siteHeader"></div>
+
+<main>
+  <section class="ptitle section--mist">
+    <img class="ptitle__art" src="assets/img/line-hills.svg" alt="" width="560" height="200">
+    <div class="wrap">
+      <h1>Our Vehicles</h1>
+      <div class="ptitle__rule"></div>
+      <p>Choose the best vehicle for your journey.</p>
+    </div>
+  </section>
+
+  <section class="section section--mist" style="padding-top:0">
+    <div class="wrap">
+      <div class="vrows" id="vehicleRows"></div>
+
+      <div class="note mt-24">
+        <span class="ico" data-ico="shield"></span>
+        <span>Every vehicle is cleaned before each trip, serviced on schedule and driven by an
+          experienced, licensed chauffeur. Rates shown are per kilometre — toll, parking and state
+          permit charges are extra where applicable.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- what's included -->
+  <section class="section section--white section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Included On Every Trip<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap">
+      <div class="why">
+        <div class="why__item">
+          <span class="ico" data-ico="key"></span>
+          <div>
+            <h3>Professional Driver</h3>
+            <p>Licensed, verified and route-experienced</p>
+          </div>
+        </div>
+        <div class="why__item">
+          <span class="ico" data-ico="snow"></span>
+          <div>
+            <h3>Air Conditioning</h3>
+            <p>Working AC on every vehicle, every season</p>
+          </div>
+        </div>
+        <div class="why__item">
+          <span class="ico" data-ico="shield"></span>
+          <div>
+            <h3>Clean Interiors</h3>
+            <p>Wiped down and aired out before each journey</p>
+          </div>
+        </div>
+        <div class="why__item">
+          <span class="ico" data-ico="headset"></span>
+          <div>
+            <h3>24/7 Trip Support</h3>
+            <p>One number to call for the whole journey</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- choosing help -->
+  <section class="section section--mist section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Which One Should You Pick?<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap">
+      <div class="grid grid--4">
+        <div class="card card--pad">
+          <h3 style="font-size:15px">1–3 passengers, city runs</h3>
+          <p class="small muted mt-8">A <strong>Compact Sedan</strong> is the cheapest way to move
+            around town and to the airport. Two suitcases fit comfortably.</p>
+          <a class="small mt-12 gold-link" href="vehicle.html?v=sedan">View sedan →</a>
+        </div>
+        <div class="card card--pad">
+          <h3 style="font-size:15px">4–6 passengers, long drives</h3>
+          <p class="small muted mt-8">The <strong>MPV</strong> is our most booked outstation vehicle —
+            steady at highway speeds with room for luggage.</p>
+          <a class="small mt-12 gold-link" href="vehicle.html?v=mpv">View MPV →</a>
+        </div>
+        <div class="card card--pad">
+          <h3 style="font-size:15px">Hills &amp; rough roads</h3>
+          <p class="small muted mt-8">An <strong>SUV</strong> gives you higher ground clearance for
+            Coorg, Chikkamagaluru and the ghat roads off the highway.</p>
+          <a class="small mt-12 gold-link" href="vehicle.html?v=suv">View SUV →</a>
+        </div>
+        <div class="card card--pad">
+          <h3 style="font-size:15px">Groups of 10 or more</h3>
+          <p class="small muted mt-8">A <strong>Minibus</strong> keeps the whole party together —
+            weddings, pilgrimages and company outings.</p>
+          <a class="small mt-12 gold-link" href="vehicle.html?v=minibus">View minibus →</a>
+        </div>
+      </div>
+
+      <div class="mt-24">
+        <div class="band">
+          <div class="band__inner">
+            <div>
+              <h2>Still comparing?</h2>
+              <p>See the exact fare for every vehicle side by side in seconds.</p>
+            </div>
+            <a class="btn btn--gold btn--lg" href="fare-calculator.html">Open Fare Calculator</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/chrome.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var rates = SA.getRates();
+  document.getElementById('vehicleRows').innerHTML = SA.VEHICLES.map(function (v) {
+    return '<a class="vrow" href="vehicle.html?v=' + v.id + '">' +
+      '<img class="vrow__img" src="' + v.img + '" alt="' + UI.esc(v.name) + '">' +
+
+      '<div class="vrow__main">' +
+        '<h2 class="vrow__name">' + UI.esc(v.name) + '</h2>' +
+        '<div class="vrow__line">' +
+          '<span class="who"><span class="ico ico--sm" data-ico="users"></span>' +
+            UI.esc(v.seats) + '</span>' +
+          '<span class="bar"></span>' +
+          '<span class="eg">' + UI.esc(v.example) + '</span>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="vrow__feats">' +
+        '<div><span class="ico" data-ico="snow"></span><span>Air<br>Conditioned</span></div>' +
+        '<div><span class="ico" data-ico="seat"></span><span>Comfortable<br>Seats</span></div>' +
+        '<div><span class="ico" data-ico="bag"></span><span>Ample Luggage<br>Space</span></div>' +
+      '</div>' +
+
+      '<div class="vrow__rates">' +
+        '<div class="vrow__rate"><div class="k">Local</div>' +
+          '<div class="v">₹ ' + rates[v.id].local + ' / KM</div></div>' +
+        '<div class="vrow__rate"><div class="k">Outstation</div>' +
+          '<div class="v">₹ ' + rates[v.id].outstation + ' / KM</div></div>' +
+      '</div>' +
+
+      '<span class="vrow__go ico" data-ico="chevronRight"></span>' +
+    '</a>';
+  }).join('');
+  UI.hydrateIcons(document);
+});
+</script>
+</body>
+</html>

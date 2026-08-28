@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book / Enquire — Sri Anjali Travels</title>
+<meta name="description" content="Send a booking enquiry to Sri Anjali Travels. Pick your vehicle, tell us your trip and we will confirm by call or WhatsApp.">
+<link rel="icon" href="assets/img/logo-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="siteHeader"></div>
+
+<main>
+  <div class="pagebar">
+    <div class="wrap pagebar__inner">
+      <a class="back" href="index.html" aria-label="Back to home">
+        <span class="ico ico--sm" data-ico="arrowLeft"></span>
+      </a>
+      <div>
+        <h1>Booking / Enquiry</h1>
+        <p>Tell us about your trip — we&rsquo;ll take it from there.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap two-col">
+
+      <form class="panel" id="bookingForm" novalidate>
+        <h2 style="font-size:17px">Trip Details</h2>
+
+        <div class="stack mt-16">
+          <div class="field" id="f-vehicle">
+            <label for="vehicle">Vehicle</label>
+            <select class="select" id="vehicle" name="vehicle"></select>
+          </div>
+
+          <div class="field" id="f-trip">
+            <label for="tripType">Trip Type</label>
+            <select class="select" id="tripType" name="tripType">
+              <option value="local">Local — within the city</option>
+              <option value="outstation">Outstation — out of town</option>
+            </select>
+          </div>
+
+          <div class="field" id="f-from">
+            <label for="pickup">Pickup Location</label>
+            <input class="input" id="pickup" name="pickup" type="text"
+                   placeholder="Area, landmark or full address" required>
+            <span class="error">Please tell us where to pick you up.</span>
+          </div>
+
+          <div class="field" id="f-to">
+            <label for="drop">Drop Location</label>
+            <input class="input" id="drop" name="drop" type="text"
+                   placeholder="Where are you headed?" required>
+            <span class="error">Please tell us where you are going.</span>
+          </div>
+
+          <div class="grid grid--2" style="gap:14px">
+            <div class="field" id="f-date">
+              <label for="date">Travel Date</label>
+              <input class="input" id="date" name="date" type="date" required>
+              <span class="error">Please choose your travel date.</span>
+            </div>
+            <div class="field" id="f-time">
+              <label for="time">Pickup Time</label>
+              <input class="input" id="time" name="time" type="time" value="09:00" required>
+              <span class="error">Please choose a pickup time.</span>
+            </div>
+          </div>
+
+          <!-- outstation only: days set the minimum-KM floor and the driver allowance -->
+          <div class="grid grid--2 hidden" id="outstationExtras" style="gap:14px">
+            <div class="field">
+              <label for="days">Number of days</label>
+              <input class="input" id="days" name="days" type="number" min="1" max="30" step="1"
+                     value="1" inputmode="numeric">
+              <span class="hint">Each day bills a minimum distance.</span>
+            </div>
+            <div class="field">
+              <label for="nights">Nights running after 10 PM</label>
+              <input class="input" id="nights" name="nights" type="number" min="0" max="30" step="1"
+                     value="0" inputmode="numeric">
+              <span class="hint">Night driver allowance per night.</span>
+            </div>
+          </div>
+
+          <div class="field" id="f-km">
+            <label for="km">Approximate Distance</label>
+            <div class="input-affix">
+              <input class="input" id="km" name="km" type="number" min="1" max="5000" step="1"
+                     inputmode="numeric" placeholder="50" required>
+              <span class="suffix">KM</span>
+            </div>
+            <span class="hint" id="kmHint">Total distance you expect to cover.</span>
+            <span class="error">Please enter the approximate distance.</span>
+          </div>
+        </div>
+
+        <h2 class="mt-24" style="font-size:17px">Your Details</h2>
+
+        <div class="stack mt-16">
+          <div class="field" id="f-name">
+            <label for="name">Full Name</label>
+            <input class="input" id="name" name="name" type="text" autocomplete="name" placeholder="Enter your name" required>
+            <span class="error">Please enter your name.</span>
+          </div>
+
+          <div class="field" id="f-phone">
+            <label for="phone">Phone Number</label>
+            <input class="input" id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel"
+                   placeholder="Enter 10 digit mobile number" maxlength="10" required>
+            <span class="error">Please enter a valid 10 digit mobile number.</span>
+          </div>
+
+          <div class="field">
+            <label for="notes">Additional Notes (Optional)</label>
+            <textarea class="textarea" id="notes" name="notes"
+                      placeholder="Number of passengers, luggage, stops along the way, child seat…"></textarea>
+          </div>
+
+          <div class="field" id="f-terms">
+            <label class="check">
+              <input type="checkbox" id="terms" name="terms">
+              <span>I agree to the <a class="gold-link" href="terms.html" target="_blank">terms &amp; conditions</a>.</span>
+            </label>
+            <span class="error">Please accept the terms &amp; conditions to continue.</span>
+          </div>
+
+          <button class="btn btn--gold btn--block btn--lg" type="submit">Send Enquiry</button>
+        </div>
+      </form>
+
+      <aside>
+        <div class="panel summary">
+          <h2 style="font-size:17px">Trip Summary</h2>
+          <div class="mt-12" id="summary"></div>
+
+          <div class="note mt-16">
+            <span class="ico" data-ico="checkCircle"></span>
+            <span>Our team will contact you shortly to confirm.</span>
+          </div>
+          <div class="note mt-12">
+            <span class="ico" data-ico="phone"></span>
+            <span>For immediate assistance, call or WhatsApp us on
+              <a href="tel:+911234567890" style="color:var(--navy);font-weight:600">+91 12345 67890</a>.</span>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/chrome.js"></script>
+<script src="assets/js/booking.js"></script>
+</body>
+</html>

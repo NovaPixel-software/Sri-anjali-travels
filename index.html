@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sri Anjali Travels — Travel Safe. Travel Happy.</title>
+<meta name="description" content="Sri Anjali Travels — comfortable cabs, MPVs, SUVs and minibuses for local and outstation trips from Bengaluru across South India. Transparent per-KM fares, no hidden charges.">
+<link rel="icon" href="assets/img/logo-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="siteHeader"></div>
+
+<main>
+  <!-- hero -->
+  <section class="hero">
+    <div class="wrap hero__inner">
+      <div class="hero__copy">
+        <h1>Travel Safe.<br>Travel Happy.<br><span class="accent">Travel with Sri Anjali.</span></h1>
+        <p class="hero__lede">Comfortable rides. Transparent fares. Memories for a lifetime.</p>
+        <div class="hero__cta">
+          <a class="btn btn--navy btn--lg" href="booking.html">
+            Book Your Ride <span class="ico ico--sm" data-ico="arrowRight"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <img class="hero__scene" src="assets/img/hero-scene.png"
+         alt="A Sri Anjali Travels coach on a winding mountain highway" width="916" height="360">
+    <svg class="hero__wave" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 28C300 -2 700-8 1040 12c200 12 320 26 400 32v20H0z" fill="#DAA017"/>
+      <path d="M0 42C300 12 700 6 1040 26c200 12 320 26 400 32v6H0z" fill="#FFFFFF"/>
+    </svg>
+  </section>
+
+  <!-- quick quote -->
+  <div class="wrap">
+    <form class="hsearch" id="quickQuote">
+      <div class="hsearch__tabs" role="tablist" aria-label="Trip type">
+        <button type="button" role="tab" data-qtype="local" aria-selected="true">
+          <span class="ico ico--sm" data-ico="car"></span> Local
+        </button>
+        <button type="button" role="tab" data-qtype="outstation" aria-selected="false">
+          <span class="ico ico--sm" data-ico="road"></span> Outstation
+        </button>
+        <button type="button" role="tab" data-qtype="airport" aria-selected="false">
+          <span class="ico ico--sm" data-ico="plane"></span> Airport
+        </button>
+      </div>
+
+      <div class="hsearch__grid">
+        <div class="field">
+          <label for="qFrom">Pickup</label>
+          <input class="input" id="qFrom" type="text" placeholder="Area or landmark">
+        </div>
+        <div class="field">
+          <label for="qTo">Drop</label>
+          <input class="input" id="qTo" type="text" placeholder="Where to?">
+        </div>
+        <div class="field">
+          <label for="qDate">Date</label>
+          <input class="input" id="qDate" type="date">
+        </div>
+        <div class="field">
+          <label for="qTime">Time</label>
+          <input class="input" id="qTime" type="time" value="09:00">
+        </div>
+        <button class="btn btn--gold btn--lg hsearch__go" type="submit">
+          <span class="ico ico--sm" data-ico="rupee"></span> Get Fare
+        </button>
+      </div>
+
+      <p class="hsearch__note">
+        <span class="ico ico--sm" data-ico="checkCircle"></span>
+        No card needed — we confirm the fare by call or WhatsApp before anything is booked.
+      </p>
+    </form>
+  </div>
+
+  <!-- fleet -->
+  <section class="section section--white" style="padding-top:14px">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Our Fleet<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap">
+      <div class="grid grid--4" id="fleetGrid"></div>
+      <p class="center mt-24">
+        <a class="btn btn--ghost" href="vehicles.html">See all vehicles
+          <span class="ico ico--sm" data-ico="arrowRight"></span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- pick the right service -->
+  <section class="section section--mist section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Choose the Right Service<i class="orn__r"></i></h2>
+      <p>Four ways people book with us — pick the one that matches your trip.</p>
+    </div>
+    <div class="wrap">
+      <div class="scards">
+        <a class="scard" href="fare-calculator.html?type=outstation">
+          <span class="scard__ico"><span class="ico ico--lg" data-ico="arrowRight"></span></span>
+          <h3>One-Way Drop</h3>
+          <p>Travelling one direction only. The vehicle still returns empty, so the quoted
+            distance covers both legs — we tell you the chargeable KM up front.</p>
+          <span class="scard__more">See one-way fares
+            <span class="ico ico--sm" data-ico="arrowRight"></span></span>
+        </a>
+
+        <a class="scard" href="fare-calculator.html?type=outstation">
+          <span class="scard__ico"><span class="ico ico--lg" data-ico="route"></span></span>
+          <h3>Round Trip</h3>
+          <p>The vehicle stays with you for the whole journey and brings you home. Billed on
+            distance covered, subject to the daily minimum, plus the driver allowance.</p>
+          <span class="scard__more">Price a round trip
+            <span class="ico ico--sm" data-ico="arrowRight"></span></span>
+        </a>
+
+        <a class="scard" href="vehicle.html?v=minibus">
+          <span class="scard__ico"><span class="ico ico--lg" data-ico="users"></span></span>
+          <h3>Group Travel</h3>
+          <p>Twelve to sixteen people in one minibus — weddings, pilgrimages and company
+            outings, with everyone arriving together instead of in a convoy.</p>
+          <span class="scard__more">See the minibus
+            <span class="ico ico--sm" data-ico="arrowRight"></span></span>
+        </a>
+
+        <a class="scard" href="booking.html">
+          <span class="scard__ico"><span class="ico ico--lg" data-ico="clock"></span></span>
+          <h3>Same-Day &amp; Airport</h3>
+          <p>Flights at odd hours and plans made this morning. Bookings are taken around the
+            clock, and early-morning airport drops are routine for us.</p>
+          <span class="scard__more">Book a pickup
+            <span class="ico ico--sm" data-ico="arrowRight"></span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- door to door -->
+  <section class="section section--white section--tight">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Door to Door</span>
+        <h2 class="mt-12" style="font-size:clamp(21px,4.4vw,28px)">
+          Picked up at your gate, dropped at the door
+        </h2>
+        <p class="muted mt-16">
+          You do not meet the driver at a junction and you do not walk to the end of the street.
+          The vehicle comes to the address you give us, waits while everyone settles in, and takes
+          you to the exact place you are going.
+        </p>
+        <ul class="checklist">
+          <li><span class="ico ico--sm" data-ico="check"></span>
+            <span><strong>Driver details before pickup</strong> — name and mobile number shared
+              ahead of time, so nobody is waiting on a stranger.</span></li>
+          <li><span class="ico ico--sm" data-ico="check"></span>
+            <span><strong>Stops along the way</strong> — a temple, a meal, a relative's house.
+              Tell us when booking and it is built into the plan.</span></li>
+          <li><span class="ico ico--sm" data-ico="check"></span>
+            <span><strong>Help with luggage</strong> — our drivers load and unload rather than
+              waiting in the seat.</span></li>
+        </ul>
+        <div class="hero__cta">
+          <a class="btn btn--navy" href="booking.html">Book a pickup</a>
+          <a class="btn btn--ghost" href="contact.html">Ask a question</a>
+        </div>
+      </div>
+      <div class="split__media">
+        <img src="assets/img/scene-about.png" alt="A Sri Anjali Travels coach on a mountain highway"
+             width="446" height="352" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- included -->
+  <section class="section section--mist section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>What You Get Every Time<i class="orn__r"></i></h2>
+      <p>The same six things on a ₹600 city run and a three-day tour.</p>
+    </div>
+    <div class="wrap">
+      <div class="incl">
+        <div class="incl__item">
+          <span class="ico" data-ico="doc"></span>
+          <div>
+            <h3>The fare agreed first</h3>
+            <p>You see the rate and the estimate before you confirm. No meter, no surprises at
+              the end of the trip.</p>
+          </div>
+        </div>
+        <div class="incl__item">
+          <span class="ico" data-ico="key"></span>
+          <div>
+            <h3>A verified driver</h3>
+            <p>Licensed, known to us and experienced on the route you are taking — not whoever
+              happened to accept the job.</p>
+          </div>
+        </div>
+        <div class="incl__item">
+          <span class="ico" data-ico="snow"></span>
+          <div>
+            <h3>A clean, cool vehicle</h3>
+            <p>Interiors wiped down and the AC checked before the vehicle leaves the yard,
+              every single trip.</p>
+          </div>
+        </div>
+        <div class="incl__item">
+          <span class="ico" data-ico="shield"></span>
+          <div>
+            <h3>Papers in order</h3>
+            <p>Registration, fitness, permit and insurance all current. Anything your route
+              needs is arranged by us.</p>
+          </div>
+        </div>
+        <div class="incl__item">
+          <span class="ico" data-ico="headset"></span>
+          <div>
+            <h3>Someone to call</h3>
+            <p>One number that stays reachable for the length of your journey, not only during
+              office hours.</p>
+          </div>
+        </div>
+        <div class="incl__item">
+          <span class="ico" data-ico="wallet"></span>
+          <div>
+            <h3>An itemised bill</h3>
+            <p>Running, allowance, toll and permit shown as separate lines with receipts, so you
+              can see where every rupee went.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="section section--white section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>How Booking Works<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap">
+      <div class="flow">
+        <div class="flow__item">
+          <div class="flow__badge"><b>1</b><span class="ico ico--lg" data-ico="car"></span></div>
+          <div>
+            <h3>Choose Ride</h3>
+            <p>Select vehicle &amp; trip type</p>
+          </div>
+        </div>
+        <div class="flow__arrow"><span class="ico" data-ico="arrowRight"></span></div>
+
+        <div class="flow__item">
+          <div class="flow__badge"><b>2</b><span class="ico ico--lg" data-ico="pin"></span></div>
+          <div>
+            <h3>Enter Details</h3>
+            <p>Add journey info &amp; preferences</p>
+          </div>
+        </div>
+        <div class="flow__arrow"><span class="ico" data-ico="arrowRight"></span></div>
+
+        <div class="flow__item">
+          <div class="flow__badge"><b>3</b><span class="ico ico--lg" data-ico="rupee"></span></div>
+          <div>
+            <h3>Get Fare</h3>
+            <p>See fare instantly with no hidden charges</p>
+          </div>
+        </div>
+        <div class="flow__arrow"><span class="ico" data-ico="arrowRight"></span></div>
+
+        <div class="flow__item">
+          <div class="flow__badge"><b>4</b><span class="ico ico--lg" data-ico="clipboard"></span></div>
+          <div>
+            <h3>Book / Enquire</h3>
+            <p>Confirm your booking and enjoy the ride</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- why us -->
+  <section class="section section--white section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Why Book With Us?<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap">
+      <div class="why">
+        <div class="why__item">
+          <span class="ico" data-ico="shield"></span>
+          <div>
+            <h3>Safe &amp; Reliable</h3>
+            <p>Well maintained vehicles</p>
+          </div>
+        </div>
+        <div class="why__item">
+          <span class="ico" data-ico="doc"></span>
+          <div>
+            <h3>Transparent Fares</h3>
+            <p>No hidden charges, just ₹ per KM</p>
+          </div>
+        </div>
+        <div class="why__item">
+          <span class="ico" data-ico="seat"></span>
+          <div>
+            <h3>Comfort &amp; Clean</h3>
+            <p>Clean cars for a comfortable journey</p>
+          </div>
+        </div>
+        <div class="why__item">
+          <span class="ico" data-ico="clock"></span>
+          <div>
+            <h3>On-time Service</h3>
+            <p>Punctual pickups, on-time drops</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- popular routes -->
+  <section class="section section--mist section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Popular Routes<i class="orn__r"></i></h2>
+      <p>Round-trip estimates from Bengaluru in a compact sedan, including the driver allowance.
+        Bigger vehicle? Use the calculator.</p>
+    </div>
+    <div class="wrap">
+      <div id="routeGroups"></div>
+      <p class="center small muted mt-16">Distances are round trip and approximate. Toll, parking and
+        state permit charges are extra at cost.</p>
+      <p class="center mt-16">
+        <a class="btn btn--ghost" href="fare-calculator.html?type=outstation">
+          Price your own route <span class="ico ico--sm" data-ico="arrowRight"></span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- testimonials -->
+  <section class="section section--white section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>What Our Customers Say<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))">
+        <blockquote class="tcard">
+          <span class="ico ico--lg" data-ico="quote"></span>
+          <p>Booked an MPV for a Bengaluru to Tirupati trip with my parents. The driver was
+            patient at every temple stop and the fare was exactly what was quoted.</p>
+          <footer><strong>Karthik R.</strong><span>Outstation · MPV</span></footer>
+        </blockquote>
+        <blockquote class="tcard">
+          <span class="ico ico--lg" data-ico="quote"></span>
+          <p>A 5 AM airport drop is where you find out if a travel company is serious. The car was
+            outside my gate at 4:45. I use them for every flight now.</p>
+          <footer><strong>Priya S.</strong><span>Airport transfer · Sedan</span></footer>
+        </blockquote>
+        <blockquote class="tcard">
+          <span class="ico ico--lg" data-ico="quote"></span>
+          <p>We hired the minibus for a family wedding — sixteen of us, two days, one vehicle.
+            Clean, cool and no drama about the extra running around.</p>
+          <footer><strong>Vijay M.</strong><span>Group hire · Minibus</span></footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- corporate -->
+  <section class="section section--mist section--tight">
+    <div class="wrap split split--flip">
+      <div class="split__media">
+        <img src="assets/img/scene-contact.png" alt="A highway through the Western Ghats"
+             width="386" height="258" loading="lazy">
+      </div>
+      <div>
+        <span class="eyebrow">For Business</span>
+        <h2 class="mt-12" style="font-size:clamp(21px,4.4vw,28px)">Corporate travel, simplified</h2>
+        <p class="muted mt-16">
+          If your office books cabs every week, you should not be settling each one in cash and
+          chasing receipts. We run monthly accounts for companies around Bengaluru.
+        </p>
+        <ul class="checklist">
+          <li><span class="ico ico--sm" data-ico="doc"></span>
+            <span><strong>One invoice a month</strong> — every trip itemised with date, passenger,
+              route and distance, ready for your accounts team.</span></li>
+          <li><span class="ico ico--sm" data-ico="users"></span>
+            <span><strong>Guest and staff pickups</strong> — airport runs for visiting clients,
+              regular shifts for your team.</span></li>
+          <li><span class="ico ico--sm" data-ico="phone"></span>
+            <span><strong>One point of contact</strong> — a person who knows your account, not a
+              different call centre agent each time.</span></li>
+          <li><span class="ico ico--sm" data-ico="wallet"></span>
+            <span><strong>Agreed rates</strong> — settled up front for your regular routes so
+              budgeting is predictable.</span></li>
+        </ul>
+        <div class="hero__cta">
+          <a class="btn btn--navy" href="contact.html">Open a corporate account</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section class="section section--white section--tight">
+    <div class="section-head">
+      <h2 class="orn"><i class="orn__l"></i>Common Questions<i class="orn__r"></i></h2>
+    </div>
+    <div class="wrap" style="max-width:820px">
+      <div class="faq">
+        <details open>
+          <summary>How is the fare worked out?</summary>
+          <p>Distance in kilometres × the per-KM rate for your vehicle. Outstation trips also carry
+            a minimum chargeable distance per day and the driver&rsquo;s allowance, both shown as
+            separate lines. Toll, parking and state permit are extra at cost. The
+            <a class="gold-link" href="fare-calculator.html">fare calculator</a> shows the whole
+            build-up before you commit to anything.</p>
+        </details>
+        <details>
+          <summary>How far ahead should I book?</summary>
+          <p>A day is comfortable for city trips and airport runs. For outstation journeys, the
+            minibus, or anything in wedding season, give us two to three days so we can put the
+            right vehicle and driver on it.</p>
+        </details>
+        <details>
+          <summary>Do you cover trips outside Karnataka?</summary>
+          <p>Yes — Tamil Nadu, Kerala, Andhra Pradesh and Telangana are regular runs for us. Those routes need a
+            state entry permit, which we arrange and pass on at cost. We tell you at the quoting
+            stage whether your route needs one.</p>
+        </details>
+        <details>
+          <summary>How do I pay?</summary>
+          <p>Cash, UPI or bank transfer at the end of the trip. Longer outstation trips may need an
+            advance towards fuel and driver expenses, and corporate clients can be invoiced monthly.</p>
+        </details>
+      </div>
+      <p class="center mt-16">
+        <a class="gold-link" href="contact.html">More questions? See the full FAQ →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- cta band -->
+  <section class="section section--tight section--white">
+    <div class="wrap">
+      <div class="band">
+        <div class="band__inner">
+          <div>
+            <h2>Ready to start your journey?</h2>
+            <p>Book now and enjoy a smooth &amp; memorable ride.</p>
+          </div>
+          <a class="btn btn--gold btn--lg" href="booking.html">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/chrome.js"></script>
+<script>
+/* Fleet cards render from the shared vehicle list so the homepage, the vehicles
+   page and the fare calculator can never drift apart. */
+document.addEventListener('DOMContentLoaded', function () {
+  var rates = SA.getRates();
+  var grid = document.getElementById('fleetGrid');
+  grid.innerHTML = SA.VEHICLES.map(function (v) {
+    return '<a class="pcard" href="vehicle.html?v=' + v.id + '">' +
+      '<img class="pcard__img" src="' + v.img + '" alt="' + UI.esc(v.name) + '">' +
+      '<h3>' + UI.esc(v.name) + '</h3>' +
+      '<div class="seats">' + UI.esc(v.seats) + '</div>' +
+      '<div class="eg">' + UI.esc(v.example) + '</div>' +
+      '<div class="pcard__rate">₹ ' + rates[v.id].local + ' <span>/ KM local</span></div>' +
+      '<div class="pcard__meta">' +
+        '<span><span class="ico ico--sm" data-ico="users"></span>' + UI.esc(v.seatCount) + '</span>' +
+        '<span class="sep"></span>' +
+        '<span><span class="ico ico--sm" data-ico="snow"></span>AC</span>' +
+      '</div>' +
+    '</a>';
+  }).join('');
+
+  /* Quick-quote widget: collects the trip and hands it to the booking form
+     prefilled, rather than trying to be a second booking form itself. */
+  (function () {
+    var form = document.getElementById('quickQuote');
+    var tabs = form.querySelector('.hsearch__tabs');
+    var type = 'local';
+
+    var today = new Date();
+    var iso = today.getFullYear() + '-' +
+      String(today.getMonth() + 1).padStart(2, '0') + '-' +
+      String(today.getDate()).padStart(2, '0');
+    var dateEl = document.getElementById('qDate');
+    dateEl.min = iso;
+    dateEl.value = iso;
+
+    tabs.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-qtype]');
+      if (!b) return;
+      type = b.getAttribute('data-qtype');
+      Array.prototype.forEach.call(tabs.querySelectorAll('button'), function (x) {
+        x.setAttribute('aria-selected', x === b ? 'true' : 'false');
+      });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      /* "Airport" is a local trip in pricing terms — it just prefills the drop. */
+      var tripType = type === 'outstation' ? 'outstation' : 'local';
+      var drop = document.getElementById('qTo').value.trim();
+      if (type === 'airport' && !drop) drop = 'Kempegowda International Airport';
+
+      window.location.href = 'booking.html?' + UI.query({
+        type: tripType,
+        from: document.getElementById('qFrom').value.trim(),
+        to: drop,
+        date: dateEl.value,
+        time: document.getElementById('qTime').value
+      });
+    });
+  })();
+
+  /* Popular routes priced live off the current sedan outstation rate. */
+  /* Routes grouped by the kind of trip people actually plan. */
+  document.getElementById('routeGroups').innerHTML = SA.ROUTE_GROUPS.map(function (g) {
+    var inGroup = SA.ROUTES.filter(function (r) { return r.group === g.id; });
+    if (!inGroup.length) return '';
+
+    var cards = inGroup.map(function (r) {
+      var days = r.days || SA.suggestedDays(r.km);
+      var q = SA.quote('sedan', 'outstation', r.km, { days: days });
+      return '<a class="rcard" href="booking.html?' +
+          UI.query({ v: 'sedan', type: 'outstation', km: r.km, days: days, to: r.to }) + '">' +
+        '<div class="rcard__head">' +
+          '<span class="ico ico--sm" data-ico="route"></span>' +
+          '<h3>Bengaluru → ' + UI.esc(r.to) + '</h3>' +
+        '</div>' +
+        '<p class="rcard__note">' + r.note + '</p>' +
+        '<div class="rcard__foot">' +
+          '<span class="km">' + r.km + ' KM · ' + days + ' day' + (days > 1 ? 's' : '') + '</span>' +
+          '<span class="fare">from ' + SA.money(q.total) + '</span>' +
+        '</div>' +
+        /* Short hops price on the daily minimum, not the distance — say so, or the
+           card looks broken when several routes quote the same figure. */
+        (q.minApplied
+          ? '<div class="rcard__min">Billed on the ' + q.minKmPerDay +
+              ' KM/day minimum, not ' + q.enteredKm + ' KM</div>'
+          : '') +
+      '</a>';
+    }).join('');
+
+    return '<div class="rgroup">' +
+      '<h3 class="rgroup__title">' +
+        '<span class="ico ico--sm" data-ico="' + g.ico + '"></span>' + g.label +
+      '</h3>' +
+      '<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(250px,100%),1fr))">' +
+        cards +
+      '</div>' +
+    '</div>';
+  }).join('');
+
+  UI.hydrateIcons(document);
+});
+</script>
+</body>
+</html>

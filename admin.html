@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Panel — Sri Anjali Travels</title>
+<meta name="description" content="Manage per-KM rates and review booking enquiries.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/logo-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="siteHeader"></div>
+
+<main>
+  <div class="pagebar">
+    <div class="wrap pagebar__inner">
+      <span class="ico ico--lg" data-ico="settings"></span>
+      <div>
+        <h1>Admin Panel</h1>
+        <p>Rates and enquiries</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="panel">
+        <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+          <button type="button" role="tab" data-tab="dashboard" aria-selected="true">Dashboard</button>
+          <button type="button" role="tab" data-tab="rates" aria-selected="false">Rates Management</button>
+          <button type="button" role="tab" data-tab="charges" aria-selected="false">Charges</button>
+          <button type="button" role="tab" data-tab="enquiries" aria-selected="false">Enquiries</button>
+        </div>
+
+        <div class="mt-24">
+          <div id="tab-dashboard"></div>
+          <div id="tab-rates" class="hidden"></div>
+          <div id="tab-charges" class="hidden"></div>
+          <div id="tab-enquiries" class="hidden"></div>
+        </div>
+      </div>
+
+      <div class="note mt-16">
+        <span class="ico" data-ico="info"></span>
+        <span>This demo panel stores rates and enquiries in this browser only (localStorage).
+          Connect it to a server or database before going live.</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/chrome.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

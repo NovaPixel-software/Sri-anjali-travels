@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enquiry Received — Sri Anjali Travels</title>
+<meta name="description" content="Your enquiry has been received. Our team will call or WhatsApp you shortly to confirm your booking.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/logo-mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<div id="siteHeader"></div>
+
+<main>
+  <div class="pagebar">
+    <div class="wrap pagebar__inner">
+      <span class="ico ico--lg" data-ico="checkCircle"></span>
+      <div>
+        <h1>Confirmation</h1>
+        <p>Enquiry received</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="panel confirm">
+        <div class="confirm__tick"><span class="ico" data-ico="check"></span></div>
+        <h1>Thank You!</h1>
+        <p class="confirm__lede">Your enquiry has been received.</p>
+
+        <div class="refbox">
+          <div class="k">Your Reference Number</div>
+          <div class="v" id="refNo">—</div>
+        </div>
+
+        <div id="recap"></div>
+
+        <div class="card card--pad" style="text-align:left">
+          <h2 style="font-size:15px">What happens next?</h2>
+          <ul class="next">
+            <li><span class="ico ico--sm" data-ico="checkCircle"></span>
+              <span>Our team will review your enquiry.</span></li>
+            <li><span class="ico ico--sm" data-ico="phone"></span>
+              <span>You will receive a call / WhatsApp confirmation shortly.</span></li>
+            <li><span class="ico ico--sm" data-ico="heart"></span>
+              <span>Once confirmed, enjoy a safe &amp; comfortable journey!</span></li>
+          </ul>
+        </div>
+
+        <div class="stack mt-24">
+          <a class="btn btn--gold btn--block" id="waLink" href="https://wa.me/911234567890" target="_blank" rel="noopener">
+            <span class="ico ico--sm" data-ico="whatsapp"></span> Send details on WhatsApp
+          </a>
+          <a class="btn btn--navy btn--block" href="index.html">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="siteFooter"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/chrome.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var ref = UI.params().ref || '';
+  var enquiry = ref ? SA.findEnquiry(ref) : null;
+  var recap = document.getElementById('recap');
+
+  document.getElementById('refNo').textContent = ref || 'Not available';
+
+  if (!enquiry) {
+    recap.innerHTML =
+      '<div class="note" style="text-align:left"><span class="ico" data-ico="info"></span>' +
+      '<span>We could not find the details for this reference on this device. ' +
+      'Your enquiry is still with our team — quote the reference number when we call.</span></div>' +
+      '<div class="mt-16"></div>';
+    UI.hydrateIcons(recap);
+    return;
+  }
+
+  var v = SA.vehicle(enquiry.vehicleId);
+  var q = SA.quote(enquiry.vehicleId, enquiry.tripType, enquiry.distance,
+    { days: enquiry.days, nights: enquiry.nights });
+
+  function line(icon, key, value, sub) {
+    return '<div class="summary__row"><span class="ico" data-ico="' + icon + '"></span>' +
+      '<span class="k">' + key + '</span><span><span class="v">' + value + '</span>' +
+      (sub ? '<span class="sub" style="display:block">' + sub + '</span>' : '') + '</span></div>';
+  }
+
+  var route = enquiry.pickup && enquiry.drop
+    ? UI.esc(enquiry.pickup) + ' → ' + UI.esc(enquiry.drop) : '';
+  var when = SA.prettyDate(enquiry.date) + (enquiry.time ? ', ' + enquiry.time : '');
+
+  recap.innerHTML =
+    '<div class="card card--pad mt-16" style="text-align:left;margin-bottom:16px">' +
+      '<h2 style="font-size:15px">Your trip</h2>' +
+      line('car', 'Vehicle', UI.esc(v ? v.name : '—'), '') +
+      (route ? line('pin', 'Route', route, '') : '') +
+      line('route', 'Trip Type', SA.tripLabel(enquiry.tripType),
+        enquiry.tripType === 'outstation' ? q.days + ' day' + (q.days > 1 ? 's' : '') : '') +
+      line('calendar', 'Pickup', when, '') +
+      line('road', 'Distance charged', q.chargeableKm + ' KM',
+        q.minApplied ? 'minimum ' + q.minKmPerDay + ' KM per day applies' : '') +
+      line('rupee', 'Running', SA.money(q.distanceFare), q.chargeableKm + ' KM × ₹' + q.rate) +
+      (q.bata ? line('key', 'Driver allowance', SA.money(q.bata),
+        q.days + ' day' + (q.days > 1 ? 's' : '')) : '') +
+      (q.nightBata ? line('clock', 'Night allowance', SA.money(q.nightBata),
+        q.nights + ' night' + (q.nights > 1 ? 's' : '')) : '') +
+      '<div class="summary__row total"><span class="ico" data-ico="wallet"></span>' +
+        '<span class="k">Estimated Total</span><span class="v">' + SA.money(q.total) + '</span></div>' +
+    '</div>' +
+    '<div class="note" style="text-align:left;margin-bottom:16px">' +
+      '<span class="ico" data-ico="info"></span>' +
+      '<span>Toll, parking and state permit charges are extra at cost. We will confirm the ' +
+      'final figure with you before the trip starts.</span></div>';
+
+  var msg = 'Hello Sri Anjali Travels, my enquiry reference is ' + enquiry.ref + '. ' +
+    v.name + ', ' + SA.tripLabel(enquiry.tripType) + ' trip' +
+    (route ? ', ' + enquiry.pickup + ' to ' + enquiry.drop : '') +
+    ', ' + enquiry.distance + ' KM on ' + SA.prettyDate(enquiry.date) +
+    (enquiry.time ? ' at ' + enquiry.time : '') + '.';
+  document.getElementById('waLink').href =
+    'https://wa.me/' + SA.BRAND.whatsapp + '?text=' + encodeURIComponent(msg);
+
+  UI.hydrateIcons(recap);
+});
+</script>
+</body>
+</html>

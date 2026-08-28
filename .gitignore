@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Logs / scratch
+*.log
+.cache/
+
+# This site is plain HTML/CSS/JS with no build step, so there is no dist/ or
+# node_modules/ to ignore. If you add tooling later, add its output here.
