@@ -54,6 +54,10 @@
 
       <div class="hsearch__grid">
         <div class="field">
+          <label for="qVehicle">Vehicle</label>
+          <select class="select" id="qVehicle"></select>
+        </div>
+        <div class="field">
           <label for="qFrom">Pickup</label>
           <input class="input" id="qFrom" type="text" placeholder="Area or landmark">
         </div>
@@ -73,6 +77,9 @@
           <span class="ico ico--sm" data-ico="rupee"></span> Get Fare
         </button>
       </div>
+
+      <!-- live details for whichever vehicle is selected above -->
+      <div class="hsearch__veh" id="qVehInfo"></div>
 
       <p class="hsearch__note">
         <span class="ico ico--sm" data-ico="checkCircle"></span>
@@ -492,7 +499,38 @@ document.addEventListener('DOMContentLoaded', function () {
   (function () {
     var form = document.getElementById('quickQuote');
     var tabs = form.querySelector('.hsearch__tabs');
+    var vehSel = document.getElementById('qVehicle');
+    var vehInfo = document.getElementById('qVehInfo');
     var type = 'local';
+
+    vehSel.innerHTML = SA.VEHICLES.map(function (v) {
+      return '<option value="' + v.id + '">' + UI.esc(v.name) + '</option>';
+    }).join('');
+
+    /* Show what the chosen vehicle actually is, and its rate for the chosen
+       trip type, so nobody has to leave the widget to find out. */
+    function paintVehicle() {
+      var v = SA.vehicle(vehSel.value) || SA.VEHICLES[0];
+      var trip = type === 'outstation' ? 'outstation' : 'local';
+      var rate = SA.rateFor(v.id, trip);
+
+      vehInfo.innerHTML =
+        '<img src="' + v.img + '" alt="">' +
+        '<span class="bit"><span class="ico ico--sm" data-ico="users"></span>' +
+          '<strong>' + UI.esc(v.seats) + '</strong></span>' +
+        '<span class="bit"><span class="ico ico--sm" data-ico="car"></span>' +
+          UI.esc(v.example) + '</span>' +
+        '<span class="bit"><span class="ico ico--sm" data-ico="snow"></span>' +
+          'Air conditioned</span>' +
+        '<span class="bit"><span class="ico ico--sm" data-ico="bag"></span>' +
+          UI.esc(v.specs['Luggage Capacity']) + '</span>' +
+        '<span class="rate">₹ ' + rate + ' <span>/ KM ' + SA.tripLabel(trip).toLowerCase() +
+          '</span></span>';
+
+      UI.hydrateIcons(vehInfo);
+    }
+
+    vehSel.addEventListener('change', paintVehicle);
 
     var today = new Date();
     var iso = today.getFullYear() + '-' +
@@ -509,7 +547,10 @@ document.addEventListener('DOMContentLoaded', function () {
       Array.prototype.forEach.call(tabs.querySelectorAll('button'), function (x) {
         x.setAttribute('aria-selected', x === b ? 'true' : 'false');
       });
+      paintVehicle();
     });
+
+    paintVehicle();
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -519,6 +560,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (type === 'airport' && !drop) drop = 'Kempegowda International Airport';
 
       window.location.href = 'booking.html?' + UI.query({
+        v: vehSel.value,
         type: tripType,
         from: document.getElementById('qFrom').value.trim(),
         to: drop,
