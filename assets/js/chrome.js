@@ -100,13 +100,13 @@
             '<div><h4>Our Services</h4><ul class="flinks flinks--ico">' + services + '</ul></div>' +
             '<div><h4>Service Areas</h4><ul class="flinks flinks--ico">' + areas + '</ul></div>' +
 
+            /* WhatsApp first — it is the main channel. No email by request. */
             '<div><h4>Contact Us</h4><ul class="flinks flinks--ico">' +
+              '<li><a href="' + WA + '" target="_blank" rel="noopener">' +
+                '<span class="ico ico--sm" data-ico="whatsapp"></span>' +
+                '<span>' + B.phone + '<br><span style="opacity:.6">WhatsApp us</span></span></a></li>' +
               '<li><a href="tel:' + B.phoneDial + '">' +
                 '<span class="ico ico--sm" data-ico="phone"></span>' + B.phone + '</a></li>' +
-              '<li><a href="' + WA + '" target="_blank" rel="noopener">' +
-                '<span class="ico ico--sm" data-ico="whatsapp"></span>' + B.phone + '</a></li>' +
-              '<li><a href="mailto:' + B.email + '">' +
-                '<span class="ico ico--sm" data-ico="mail"></span>' + B.email + '</a></li>' +
               '<li><span class="ico ico--sm" data-ico="pin"></span>' +
                 '<span>123, New Street,<br>Bengaluru - 560 001,<br>Karnataka, India</span></li>' +
             '</ul></div>' +

@@ -159,9 +159,10 @@ window.SA = (function () {
     extraHourRate: 150       // beyond a local hourly package
   };
 
-  /* Local hourly packages — the standard way city hires are sold. */
+  /* Local hires are sold as hourly packages within Bengaluru city limits.
+     Anything leaving the city is an outstation round trip instead. */
   var HOURLY_PACKAGES = [
-    { id: '4-40', label: '4 hrs / 40 KM', hours: 4, km: 40, note: 'Half-day city use' },
+    { id: '4-40', label: '4 hrs / 40 KM', hours: 4, km: 40, note: 'Half day in the city' },
     { id: '8-80', label: '8 hrs / 80 KM', hours: 8, km: 80, note: 'Full working day' },
     { id: '12-120', label: '12 hrs / 120 KM', hours: 12, km: 120, note: 'Long day or event' }
   ];

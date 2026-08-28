@@ -4,16 +4,27 @@
 (function () {
   'use strict';
 
-  var state = { trip: 'local', mode: 'compare', km: 50, days: 1, nights: 0, index: 0 };
+  var state = {
+    trip: 'local', mode: 'compare', km: 50, days: 1, nights: 0, index: 0,
+    pkg: '8-80'   // local hires default to the full-day package
+  };
 
   var elDistance, elResults, elTripSeg, elModeSeg, elDays, elNights, elExtras;
+  var elPkgWrap, elPkgChips;
 
   function readInitialState() {
     var p = UI.params();
     if (p.type === 'outstation' || p.type === 'local') state.trip = p.type;
     if (p.mode === 'guided') state.mode = 'guided';
     var km = Number(p.km);
-    if (km > 0) state.km = km;
+    /* an explicit distance in the URL means a custom run, not a package */
+    if (km > 0) { state.km = km; state.pkg = 'custom'; }
+    /* otherwise a local visit starts on its default package, so the distance
+       must come from that package rather than the generic default */
+    else if (state.trip === 'local') {
+      var pkg = currentPackage();
+      if (pkg) state.km = pkg.km;
+    }
     if (Number(p.days) > 0) state.days = Math.round(Number(p.days));
     if (Number(p.nights) > 0) state.nights = Math.round(Number(p.nights));
     if (p.v) {
@@ -37,6 +48,48 @@
 
   function opts() {
     return { days: state.days, nights: state.nights };
+  }
+
+  function currentPackage() {
+    if (state.trip !== 'local' || state.pkg === 'custom') return null;
+    var found = null;
+    SA.HOURLY_PACKAGES.forEach(function (p) { if (p.id === state.pkg) found = p; });
+    return found;
+  }
+
+  /* Local packages: chips for 4/8/12 hours plus a custom-distance escape hatch.
+     Choosing a package just sets the distance, so the fare maths is unchanged. */
+  function buildPackageChips() {
+    if (!elPkgChips) return;
+    var chips = SA.HOURLY_PACKAGES.map(function (p) {
+      return '<button class="chip" type="button" data-pkg="' + p.id + '">' +
+        p.label + '</button>';
+    }).join('') +
+      '<button class="chip" type="button" data-pkg="custom">Custom distance</button>';
+    elPkgChips.innerHTML = chips;
+
+    elPkgChips.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-pkg]');
+      if (!b) return;
+      state.pkg = b.getAttribute('data-pkg');
+      var pkg = currentPackage();
+      if (pkg) { state.km = pkg.km; elDistance.value = pkg.km; }
+      syncPackageChips();
+      render();
+    });
+  }
+
+  function syncPackageChips() {
+    if (!elPkgChips) return;
+    Array.prototype.forEach.call(elPkgChips.querySelectorAll('button'), function (b) {
+      b.classList.toggle('chip--on', b.getAttribute('data-pkg') === state.pkg);
+    });
+    /* a package fixes the distance, so the field becomes read-only */
+    var pkg = currentPackage();
+    if (elDistance) {
+      elDistance.readOnly = !!pkg;
+      elDistance.classList.toggle('is-locked', !!pkg);
+    }
   }
 
   /* Itemised build-up, so the customer sees where each rupee comes from. */
@@ -106,8 +159,14 @@
 
   function compareFootnote(list) {
     if (state.trip !== 'outstation') {
+      var pkg = currentPackage();
+      if (pkg) {
+        return '<p class="small muted mt-12">' + pkg.label + ' package within Bengaluru city. ' +
+          'Beyond the package, extra KM are charged at the same per-KM rate and each extra hour ' +
+          'at ₹' + SA.getCharges().extraHourRate + '. Tap a vehicle to book it.</p>';
+      }
       return '<p class="small muted mt-12">Showing fares for ' + state.km +
-        ' KM. Tap a vehicle to book it.</p>';
+        ' KM within Bengaluru city. Tap a vehicle to book it.</p>';
     }
     var q = list[0].detail;
     var bits = [];
@@ -175,6 +234,8 @@
 
   function render() {
     if (elExtras) elExtras.classList.toggle('hidden', state.trip !== 'outstation');
+    if (elPkgWrap) elPkgWrap.classList.toggle('hidden', state.trip !== 'local');
+    syncPackageChips();
     if (!(state.km > 0)) { renderEmpty(); return; }
     if (state.mode === 'guided') renderGuided(); else renderCompare();
     UI.hydrateIcons(elResults);
@@ -188,6 +249,9 @@
     elDays = document.getElementById('days');
     elNights = document.getElementById('nights');
     elExtras = document.getElementById('outstationExtras');
+    elPkgWrap = document.getElementById('localPackages');
+    elPkgChips = document.getElementById('pkgChips');
+    buildPackageChips();
 
     readInitialState();
     elDistance.value = state.km;
@@ -209,6 +273,9 @@
       var b = e.target.closest('button[data-trip]');
       if (!b) return;
       state.trip = b.getAttribute('data-trip');
+      /* returning to local with a package selected restores that package's KM */
+      var pkg = currentPackage();
+      if (pkg) { state.km = pkg.km; elDistance.value = pkg.km; }
       syncSeg(elTripSeg, 'data-trip', state.trip);
       render();
     });
@@ -251,10 +318,9 @@
     var host = document.getElementById('presetKm');
     if (!host) return;
 
-    var presets = [
-      { label: 'Airport drop · 20 KM', km: 20, trip: 'local', days: 1 },
-      { label: 'City full day · 80 KM', km: 80, trip: 'local', days: 1 }
-    ].concat(SA.ROUTES.map(function (r) {
+    /* local hires are picked with the package chips above, so these are the
+       outstation round trips only */
+    var presets = [].concat(SA.ROUTES.map(function (r) {
       var days = r.days || SA.suggestedDays(r.km);
       return {
         label: r.to + ' · ' + r.km + ' KM' + (days > 1 ? ' · ' + days + ' days' : ''),
@@ -272,6 +338,7 @@
       var p = presets[Number(b.getAttribute('data-i'))];
       state.km = p.km;
       state.trip = p.trip;
+      state.pkg = 'custom';
       state.days = p.days || 1;
       state.nights = 0;
       elDistance.value = p.km;

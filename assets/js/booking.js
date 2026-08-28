@@ -62,6 +62,34 @@
     UI.hydrateIcons(elSummary);
   }
 
+  /* The whole enquiry as a WhatsApp message, so the customer sends us everything
+     in one go and we can reply with a confirmed fare. */
+  function whatsappLink(e) {
+    var v = SA.vehicle(e.vehicleId);
+    var q = SA.quote(e.vehicleId, e.tripType, e.distance, { days: e.days, nights: e.nights });
+
+    var lines = [
+      'Hello Sri Anjali Travels, I would like to book a trip.',
+      '',
+      'Reference: ' + e.ref,
+      'Name: ' + e.name,
+      'Phone: ' + e.phone,
+      'Vehicle: ' + (v ? v.name + ' (' + v.seats + ')' : e.vehicleId),
+      'Trip: ' + SA.tripLabel(e.tripType) +
+        (e.tripType === 'outstation' ? ' round trip, ' + q.days + ' day' + (q.days > 1 ? 's' : '') : ''),
+      'Pickup: ' + e.pickup,
+      'Drop: ' + e.drop,
+      'When: ' + SA.prettyDate(e.date) + (e.time ? ' at ' + prettyTime(e.time) : ''),
+      'Distance: ' + e.distance + ' KM' +
+        (q.minApplied ? ' (charged ' + q.chargeableKm + ' KM on the daily minimum)' : ''),
+      'Estimated fare: ' + SA.money(q.total) + ' (+ toll, parking, permit at cost)'
+    ];
+    if (e.notes) lines.push('Notes: ' + e.notes);
+    lines.push('', 'Please confirm the fare and the vehicle.');
+
+    return 'https://wa.me/' + SA.BRAND.whatsapp + '?text=' + encodeURIComponent(lines.join('\n'));
+  }
+
   function prettyTime(hhmm) {
     var bits = String(hhmm).split(':');
     var h = Number(bits[0]);
@@ -212,6 +240,12 @@
       };
 
       SA.addEnquiry(enquiry);
+
+      /* Booking goes straight to WhatsApp. The enquiry is still saved first so
+         it reaches the admin panel even if the visitor never sends the message.
+         Opened inside the submit gesture so it is not treated as a popup; if the
+         browser blocks it anyway, the confirmation page repeats the link. */
+      window.open(whatsappLink(enquiry), '_blank', 'noopener');
       window.location.href = 'confirmation.html?ref=' + encodeURIComponent(enquiry.ref);
     });
 

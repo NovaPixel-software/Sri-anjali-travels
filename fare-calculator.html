@@ -40,6 +40,16 @@
             <button type="button" role="tab" data-mode="guided" aria-selected="false">Guided (One by One)</button>
           </div>
 
+          <!-- local-only: hourly packages within Bengaluru city -->
+          <div id="localPackages">
+            <div class="field">
+              <label>Local Package</label>
+              <div class="chips" id="pkgChips"></div>
+              <span class="hint">Within Bengaluru city limits. Leaving the city is an
+                outstation round trip.</span>
+            </div>
+          </div>
+
           <div class="field">
             <label for="distance">Trip Distance</label>
             <div class="input-affix">
@@ -80,7 +90,7 @@
       </div>
 
       <div class="mt-24">
-        <h2 class="center" style="font-size:17px">Typical trip distances</h2>
+        <h2 class="center" style="font-size:17px">Popular outstation round trips</h2>
         <p class="center small muted mt-8">Tap one to load it into the calculator.</p>
         <div class="chips mt-16" style="justify-content:center" id="presetKm"></div>
       </div>
@@ -108,9 +118,10 @@
         </details>
         <details>
           <summary>Does the distance include the return journey?</summary>
-          <p>For a one-way outstation drop, yes — the vehicle still has to come back, so the quoted
-            distance covers both legs. For local trips, enter the total kilometres you expect to cover
-            during the hire. We confirm the chargeable distance with you before the trip starts.</p>
+          <p>Yes. Every outstation trip is a round trip — the vehicle stays with you and comes back
+            with you — so the distance you enter should be the full journey out and back. For local
+            hires, the kilometres included in your hourly package cover the whole day. We confirm the
+            chargeable distance with you before the trip starts.</p>
         </details>
         <details>
           <summary>Is this figure the final bill?</summary>
@@ -119,12 +130,12 @@
             and you cover more ground, the extra is charged at that same rate — never a higher one.</p>
         </details>
         <details>
-          <summary>What is the difference between a one-way drop and a round trip?</summary>
-          <p>On a <strong>round trip</strong> the vehicle stays with you and comes back with you, so
-            you pay for the distance actually covered, subject to the daily minimum. On a
-            <strong>one-way drop</strong> the vehicle still has to return empty, so the quoted
-            distance includes that return leg. If you only need a one-way drop, tell us — on busy
-            corridors we can sometimes pair you with a return booking and bring the price down.</p>
+          <summary>What is the difference between a local hire and an outstation trip?</summary>
+          <p>A <strong>local</strong> hire stays within Bengaluru city and is sold as an hourly
+            package — 4, 8 or 12 hours, each with kilometres included. An
+            <strong>outstation</strong> trip leaves the city, is always a round trip with the
+            vehicle staying with you, and is billed on distance plus a daily minimum and the
+            driver&rsquo;s allowance.</p>
         </details>
         <details>
           <summary>What is the minimum distance charged per day?</summary>

@@ -615,6 +615,10 @@ a.fare-row:hover{border-color:var(--grey-300);box-shadow:var(--sh-2);transform:t
   padding:7px 15px;font-size:13px;font-weight:500;
 }
 .chip--muted{color:var(--grey);border-style:dashed}
+button.chip{cursor:pointer;transition:background .16s,border-color .16s,color .16s}
+button.chip:hover{border-color:var(--gold)}
+button.chip.chip--on{background:var(--navy);border-color:var(--navy);color:var(--white)}
+.input.is-locked{background:var(--mist);color:var(--grey);cursor:not-allowed}
 
 .iconrow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;text-align:center}
 .iconrow div{padding:12px 6px;background:var(--mist);border-radius:var(--r);border:1px solid var(--line)}

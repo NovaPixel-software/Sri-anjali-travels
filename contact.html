@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Contact Us — Sri Anjali Travels</title>
-<meta name="description" content="Call, WhatsApp or email Sri Anjali Travels. Pickups across Bengaluru, Mysuru, Tumakuru, Mandya and Hassan — drops anywhere in South India.">
+<meta name="description" content="Call or WhatsApp Sri Anjali Travels. Pickups across Bengaluru, Mysuru, Tumakuru, Mandya and Hassan — drops anywhere in South India.">
 <link rel="icon" href="assets/img/logo-mark.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,11 +39,6 @@
           <span><span class="k">WhatsApp</span><br><span class="v">+91 12345 67890</span>
             <span class="k" style="display:block;margin-top:3px">Fastest for quotes &amp; photos</span></span>
         </a>
-        <a class="contact-item" href="mailto:info@srianjalitravels.com">
-          <span class="ico-wrap"><span class="ico" data-ico="mail"></span></span>
-          <span><span class="k">Email</span><br><span class="v">info@srianjalitravels.com</span>
-            <span class="k" style="display:block;margin-top:3px">For corporate &amp; billing queries</span></span>
-        </a>
         <div class="contact-item">
           <span class="ico-wrap"><span class="ico" data-ico="clock"></span></span>
           <span><span class="k">Office Hours</span><br>
@@ -71,18 +66,12 @@
             <span class="error">Please enter your name.</span>
           </div>
 
-          <div class="grid grid--2" style="gap:14px">
-            <div class="field" id="c-phone">
-              <label for="cphone">Phone Number</label>
-              <input class="input" id="cphone" type="tel" inputmode="numeric" autocomplete="tel"
-                     maxlength="10" placeholder="10 digit mobile number" required>
-              <span class="error">Enter a valid 10 digit mobile number.</span>
-            </div>
-            <div class="field" id="c-email">
-              <label for="cemail">Email <span class="muted">(optional)</span></label>
-              <input class="input" id="cemail" type="email" autocomplete="email" placeholder="you@example.com">
-              <span class="error">That email address does not look right.</span>
-            </div>
+          <div class="field" id="c-phone">
+            <label for="cphone">Phone Number</label>
+            <input class="input" id="cphone" type="tel" inputmode="numeric" autocomplete="tel"
+                   maxlength="10" placeholder="10 digit mobile number" required>
+            <span class="hint">We reply on WhatsApp, so please use a WhatsApp number.</span>
+            <span class="error">Enter a valid 10 digit mobile number.</span>
           </div>
 
           <div class="field">
@@ -104,7 +93,7 @@
           </div>
 
           <button class="btn btn--gold btn--block btn--lg" type="submit">
-            <span class="ico ico--sm" data-ico="mail"></span> Send Message
+            <span class="ico ico--sm" data-ico="whatsapp"></span> Send on WhatsApp
           </button>
           <p class="small muted center">Prefer to talk? Call
             <a class="gold-link" href="tel:+911234567890">+91 12345 67890</a> — we answer 24/7.</p>
@@ -193,9 +182,9 @@
         </details>
         <details>
           <summary>Do you charge for the return distance on outstation trips?</summary>
-          <p>For a one-way drop, the vehicle still has to come back, so the quoted distance includes
-            the return leg. We tell you the total kilometres being charged before you confirm — there
-            is never a surprise on the final bill.</p>
+          <p>Every outstation trip is a round trip — the vehicle stays with you and brings you back —
+            so the quoted distance covers the whole journey out and back. We tell you the total
+            kilometres being charged before you confirm; there is never a surprise on the final bill.</p>
         </details>
         <details>
           <summary>How far in advance should I book?</summary>
@@ -212,7 +201,7 @@
         <details>
           <summary>What payment methods do you accept?</summary>
           <p>Cash, UPI and bank transfer. Corporate clients can be set up on a monthly account with
-            a consolidated invoice — email us to arrange it.</p>
+            a consolidated invoice — WhatsApp or call us to arrange it.</p>
         </details>
         <details>
           <summary>Are night trips available?</summary>
@@ -237,7 +226,6 @@ document.addEventListener('DOMContentLoaded', function () {
   var form = document.getElementById('contactForm');
   var name = document.getElementById('cname');
   var phone = document.getElementById('cphone');
-  var email = document.getElementById('cemail');
   var subject = document.getElementById('csubject');
   var message = document.getElementById('cmessage');
 
@@ -255,7 +243,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var ok = true;
     ok = mark('c-name', name.value.trim().length < 2) && ok;
     ok = mark('c-phone', !/^[6-9]\d{9}$/.test(phone.value.trim())) && ok;
-    ok = mark('c-email', email.value.trim() !== '' && !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email.value.trim())) && ok;
     ok = mark('c-msg', message.value.trim().length < 5) && ok;
 
     if (!ok) {
@@ -268,28 +255,30 @@ document.addEventListener('DOMContentLoaded', function () {
     var text = 'Hello Sri Anjali Travels,\n' +
       'Name: ' + name.value.trim() + '\n' +
       'Phone: ' + phone.value.trim() + '\n' +
-      (email.value.trim() ? 'Email: ' + email.value.trim() + '\n' : '') +
       'Subject: ' + subject.value + '\n' +
       'Message: ' + message.value.trim();
+
+    var wa = 'https://wa.me/' + SA.BRAND.whatsapp + '?text=' + encodeURIComponent(text);
 
     form.innerHTML =
       '<div class="center" style="padding:14px 0">' +
         '<div class="confirm__tick"><span class="ico" data-ico="check"></span></div>' +
         '<h2 style="font-size:20px">Thanks, ' + UI.esc(name.value.trim().split(' ')[0]) + '!</h2>' +
-        '<p class="muted mt-8">Your message is ready to send. Tap below and it will open in ' +
-          'WhatsApp with your details filled in — or call us on ' +
+        '<p class="muted mt-8">WhatsApp is opening with your message ready to send. ' +
+          'If it did not open, use the button below or call ' +
           '<a class="gold-link" href="tel:+911234567890">+91 12345 67890</a>.</p>' +
         '<div class="stack mt-24" style="text-align:left">' +
-          '<a class="btn btn--gold btn--block" target="_blank" rel="noopener" href="https://wa.me/' +
-            SA.BRAND.whatsapp + '?text=' + encodeURIComponent(text) + '">' +
+          '<a class="btn btn--gold btn--block" target="_blank" rel="noopener" href="' + wa + '">' +
             '<span class="ico ico--sm" data-ico="whatsapp"></span> Send on WhatsApp</a>' +
-          '<a class="btn btn--ghost btn--block" href="mailto:' + SA.BRAND.email +
-            '?subject=' + encodeURIComponent(subject.value) +
-            '&body=' + encodeURIComponent(text) + '">' +
-            '<span class="ico ico--sm" data-ico="mail"></span> Send by email</a>' +
+          '<a class="btn btn--ghost btn--block" href="tel:+911234567890">' +
+            '<span class="ico ico--sm" data-ico="phone"></span> Call instead</a>' +
         '</div>' +
       '</div>';
     UI.hydrateIcons(form);
+
+    /* open WhatsApp straight away — this runs inside the submit gesture, so it
+       is not treated as an unsolicited popup */
+    window.open(wa, '_blank', 'noopener');
   });
 });
 </script>
