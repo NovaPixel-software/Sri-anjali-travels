@@ -48,6 +48,7 @@
     instagram: '<rect x="2.8" y="2.8" width="18.4" height="18.4" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1.2" fill="currentColor" stroke="none"/>',
     road: '<path d="M4.5 21 7.2 3M19.5 21 16.8 3M12 3.5v3.2M12 10.4v3.2M12 17.3v3.2"/>',
     chevronRight: '<path d="m9 5 7 7-7 7"/>',
+    arrowUp: '<path d="M12 19V5M6 11l6-6 6 6"/>',
     quote: '<path d="M9.5 6.5C6.9 7.6 5 10 5 13v4.5h5.5V11H8c.2-1.4 1-2.3 2.4-3zM19 6.5C16.4 7.6 14.5 10 14.5 13v4.5H20V11h-2.5c.2-1.4 1-2.3 2.4-3z"/>',
     compass: '<circle cx="12" cy="12" r="9"/><path d="m15.6 8.4-2 5.2-5.2 2 2-5.2z"/>',
     wallet: '<path d="M3.5 7.5A2.5 2.5 0 0 1 6 5h11.5A1.5 1.5 0 0 1 19 6.5v2"/><rect x="3.5" y="7.5" width="17" height="12" rx="2.5"/><path d="M20.5 12h-3.2a2 2 0 0 0 0 4h3.2"/>',
@@ -106,6 +107,113 @@
     toastTimer = window.setTimeout(function () { el.classList.remove('show'); }, 2600);
   }
 
+  /* ---------- scroll reveal ----------
+     Elements fade and rise as they enter the viewport. Anything already on
+     screen at init is revealed synchronously in the same tick, so above-the-fold
+     content never flashes in. If IntersectionObserver is missing or the visitor
+     prefers reduced motion we simply never add the .js-reveal class, leaving
+     everything visible. */
+  var REVEAL_SELECTOR = [
+    '.section-head', '.pcard', '.scard', '.incl__item', '.rcard', '.tcard',
+    '.vrow', '.stat', '.why__item', '.flow__item', '.card', '.panel',
+    '.contact-item', '.band', '.quote', '.media', '.faq details',
+    '.rgroup__title', '.iconrow', '.spec-wrap', '.chips'
+  ].join(',');
+
+  var revealObserver = null;
+
+  function revealEnabled() {
+    if (!('IntersectionObserver' in window)) return false;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
+    return true;
+  }
+
+  function show(el) {
+    el.classList.add('is-visible');
+    if (revealObserver) revealObserver.unobserve(el);
+  }
+
+  /* Tag and observe anything not already handled. Safe to call repeatedly —
+     page scripts call it after injecting cards. */
+  function revealScan(root) {
+    if (!revealObserver) return;
+    var nodes = (root || document).querySelectorAll(REVEAL_SELECTOR);
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+
+    Array.prototype.forEach.call(nodes, function (el) {
+      if (el.hasAttribute('data-reveal')) return;
+      el.setAttribute('data-reveal', '');
+
+      /* a small stagger between siblings makes a row of cards cascade */
+      var idx = 0, sib = el.previousElementSibling;
+      while (sib && idx < 6) { idx++; sib = sib.previousElementSibling; }
+      if (idx) el.style.transitionDelay = (idx * 70) + 'ms';
+
+      /* already on screen: reveal now, before the browser paints */
+      if (el.getBoundingClientRect().top < vh * 0.92) show(el);
+      else revealObserver.observe(el);
+    });
+  }
+
+  function initReveal() {
+    if (!revealEnabled()) return;
+
+    revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) show(entry.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+
+    document.documentElement.classList.add('js-reveal');
+    revealScan(document);
+
+    /* page scripts inject their cards on DOMContentLoaded too, and their
+       handlers run after this one — pick those up on the next tick */
+    window.setTimeout(function () { revealScan(document); }, 0);
+    window.addEventListener('load', function () { revealScan(document); });
+
+    /* failsafe: never leave content stranded invisible */
+    window.setTimeout(function () {
+      Array.prototype.forEach.call(
+        document.querySelectorAll('[data-reveal]:not(.is-visible)'),
+        function (el) {
+          if (el.getBoundingClientRect().top < (window.innerHeight || 0)) show(el);
+        }
+      );
+    }, 2500);
+  }
+
+  /* ---------- header elevation + back to top ---------- */
+  function initScrollChrome() {
+    var header = document.querySelector('.site-header');
+    var btn = document.createElement('button');
+    btn.className = 'to-top';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = iconSVG('arrowUp');
+    document.body.appendChild(btn);
+
+    btn.addEventListener('click', function () {
+      var reduce = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        var y = window.pageYOffset || document.documentElement.scrollTop;
+        if (header) header.classList.toggle('is-stuck', y > 8);
+        btn.classList.toggle('show', y > 600);
+        ticking = false;
+      });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   /* ---------- url helpers ---------- */
   function params() {
     var out = {};
@@ -143,6 +251,7 @@
   window.UI = {
     icon: iconSVG,
     hydrateIcons: hydrateIcons,
+    revealScan: revealScan,
     toast: toast,
     params: params,
     query: query,
@@ -153,6 +262,8 @@
     hydrateIcons(document);
     initNav();
     markActiveNav();
+    initReveal();
+    initScrollChrome();
     var year = document.querySelectorAll('[data-year]');
     Array.prototype.forEach.call(year, function (el) { el.textContent = new Date().getFullYear(); });
   });
